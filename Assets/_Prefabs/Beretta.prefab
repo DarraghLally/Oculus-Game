@@ -706,7 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 138efadf698beef4e9aba835f744e837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  speed: 200
   bullet: {fileID: 856016265516036835, guid: 8156a06d76d58f041819960bc73bb5df, type: 3}
   barrel: {fileID: 6920704796445617355}
 --- !u!1 &8866670634711410389
