@@ -4,124 +4,35 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    private Transform tr_Player;
-    private Animator animator;
-    private float f_RotSpeed = 1.5f;
-    private bool isMoving = false;
-    private bool isAttacking = false;
-    private float attackRange = 0.5f;
-    private float playerDistance;
+    // == delegate types used for event methods ==
+    public delegate void EnemyKilled(Enemy enemy);
 
-    // Use this for initialization
-    void Start()
-    {
-        tr_Player = GameObject.FindGameObjectWithTag("Player").transform;
-        animator = GetComponentInChildren<Animator>();
-        //distToGround = GetComponent<Collider>().bounds.extents.y;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // check distance from player
-        playerDistance = CheckRange(tr_Player, this.transform);
+    // == static methods to be implemented by the event listner ==
+    public static EnemyKilled EnemyKilledEvent;
+    
+    private void OnTriggerEnter(Collider whatHitMe) {
         
-        // if player is present and outside attack range move to them AND is not attacking
-        if(tr_Player && (playerDistance > attackRange))
-        {
-            this.MoveEnemy();
-        }
-        else
-        {
-            this.StopMoving();
-        }
+        var bullet = whatHitMe.GetComponent<Bullet>();
 
-        // check if within attack range
-        if((attackRange >= this.CheckRange(tr_Player, this.transform)))
+        if(bullet)
         {
-            this.AttackPlayer();
+            // event to award points
+            PublishEnemyKilledEvent();
+
+            // play sound effects
+            //FindObjectOfType<AudioManager>().Play("EnemyExplosion");
+
+            // destroy enemy
+            Destroy(gameObject);
         }
-        else
-        {
-            this.StopAttacking();
-        } 
-
-    }
-
-    private void MoveEnemy()
-    {
         
+    }
 
-        if(!isMoving)
+    private void PublishEnemyKilledEvent()
+    {
+        if(EnemyKilledEvent != null)
         {
-            /* Move at Player*/
-            animator.SetBool("enemyMoving", true);
-            isMoving = true; 
-            Debug.Log("Enemy is Moving...");
+            EnemyKilledEvent(this);
         }
-        else
-        {
-            /* Look at Player*/
-            transform.rotation = Quaternion.Slerp(transform.rotation
-                                              , Quaternion.LookRotation(tr_Player.position - transform.position)
-                                              , f_RotSpeed * Time.deltaTime);
-
-        }
-    }
-
-    private void StopMoving()
-    {
-        if(isMoving)
-        {
-            animator.SetBool("enemyMoving", false);
-            isMoving = false;
-            Debug.Log("Enemy Stopped Moving..."); 
-            Debug.Log("Range: " + playerDistance);
-        }
-    }
-
-    private void AttackPlayer()
-    {
-        if(!isAttacking)
-        {
-            animator.SetBool("enemyAttacking", true);
-            isAttacking = true;
-            Debug.Log("Enemy is Attacking...");
-        }
-
-    }
-
-    private void StopAttacking()
-    {
-        if(isAttacking)
-        {
-            animator.SetBool("enemyAttacking", false);
-            isAttacking = false; 
-            Debug.Log("Enemy Stopped Attacking..."); 
-        }
-    }
-
-    private float CheckRange(Transform object1, Transform object2)
-    {
-        float distance = Vector3.Distance (object1.position, object2.position);
-
-        return distance;
-    }
-
-    IEnumerator AttackDelay(float time)
-    {
-        Debug.Log("Enemy is Attacking...");
-        isAttacking = true;
-        yield return new WaitForSeconds(time);
-        
-        StopAllCoroutines();
-        animator.SetBool("enemyAttacking", false);
-        isAttacking = false; 
-        Debug.Log("Enemy Stopped Attacking...");
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("Collded with: " + other);
     }
 }
