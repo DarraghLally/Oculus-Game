@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.unity.ai.navigation.components": {
-      "version": "file:C:/Users/Anto/Downloads/NavMeshComponents-package/NavMeshComponents-package",
+      "version": "file:C:/Users/darra/Documents/_sem8/Gesture Based UIE/NavMeshComponents-package",
       "depth": 0,
       "source": "local",
       "dependencies": {

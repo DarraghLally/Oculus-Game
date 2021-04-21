@@ -10,11 +10,25 @@ public class Enemy : MonoBehaviour
     // == static methods to be implemented by the event listner ==
     public static EnemyKilled EnemyKilledEvent;
     
-    private void OnTriggerEnter(Collider whatHitMe) {
+    private void OnTriggerEnter(Collider whatHitMe) 
+    {
         
         var bullet = whatHitMe.GetComponent<Bullet>();
+        var axe = whatHitMe.GetComponent<Axe>();
 
-        if(bullet)
+        if (bullet)
+        {
+            // event to award points
+            PublishEnemyKilledEvent();
+
+            // play sound effects
+            //FindObjectOfType<AudioManager>().Play("EnemyExplosion");
+
+            // destroy enemy
+            Destroy(gameObject);
+        }
+
+        if (axe)
         {
             // event to award points
             PublishEnemyKilledEvent();
