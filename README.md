@@ -1,7 +1,7 @@
 # Zombie Slayer
 ### By Darragh Lally and Anthony Moore
 
-##Requirments:
+## Requirments:
 
 * Unity Version 2019.4.19f1
 * Unity Packages:
@@ -11,7 +11,7 @@
 ..* NavMesh Components v0.1.0
 
 
-###In order to run our application on an Oculus device there are a number of steps to be taken.
+### In order to run our application on an Oculus device there are a number of steps to be taken.
 
 * Turn on Developer Mode on your Oculus Device.
 * Connect Oculus to your PC/Laptop via supplied cable.
