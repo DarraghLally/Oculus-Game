@@ -1,7 +1,17 @@
 # Zombie Slayer
 ### By Darragh Lally and Anthony Moore
 
-In order to run our application on an Oculus device there are a number of steps to be taken.
+##Requirments:
+
+* Unity Version 2019.4.19f1
+* Unity Packages:
+..* XR Interaction Toolkit v0.10.0
+..* XR Plugin Management v4.0.1
+..* Oculus XR Plugin v1.7
+..* NavMesh Components v0.1.0
+
+
+###In order to run our application on an Oculus device there are a number of steps to be taken.
 
 * Turn on Developer Mode on your Oculus Device.
 * Connect Oculus to your PC/Laptop via supplied cable.
