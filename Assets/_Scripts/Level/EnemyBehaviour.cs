@@ -27,6 +27,10 @@ public class EnemyBehaviour : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    //events
+    public delegate void PlayerDamaged(EnemyBehaviour enemy);
+    public static PlayerDamaged PlayerDamagedEvent;
+
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
@@ -51,8 +55,9 @@ public class EnemyBehaviour : MonoBehaviour
         {
             // Move at Player
             animator.SetBool("enemyMoving", true);
-            isMoving = true; 
+            isMoving = true;
             //Debug.Log("Enemy is Moving...");
+            //FindObjectOfType<AudioManager>().Play("ZombieWalk");
         }
     }
 
@@ -124,6 +129,13 @@ public class EnemyBehaviour : MonoBehaviour
             animator.SetBool("enemyAttacking", true);
             //Debug.Log("Enemy is Attacking...");
 
+            // audio clip
+            FindObjectOfType<AudioManager>().Play("ZombieMoan");
+
+            // damaged event
+            PublishPlayerDamagedEvent();
+
+
             // stop attacking
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
@@ -143,5 +155,13 @@ public class EnemyBehaviour : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
+
+    private void PublishPlayerDamagedEvent()
+    {
+        if (PlayerDamagedEvent != null)
+        {
+            PlayerDamagedEvent(this);
+        }
     }
 }

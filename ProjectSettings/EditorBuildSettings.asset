@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/_Scenes/HandMovement.unity
     guid: 118c2603e21805a44ad941c35dd3c2f7
   - enabled: 1
+    path: Assets/_Scenes/Menu.unity
+    guid: 1de8d3f27c504714abc099cb89bc47e6
+  - enabled: 1
     path: Assets/_Scenes/City Map.unity
     guid: 4be0e8b889af66448a56dd6f7f55a60c
   m_configObjects:

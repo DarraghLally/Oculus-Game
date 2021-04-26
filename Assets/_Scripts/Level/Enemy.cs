@@ -6,39 +6,30 @@ public class Enemy : MonoBehaviour
 {
     // == delegate types used for event methods ==
     public delegate void EnemyKilled(Enemy enemy);
+    //public delegate void PlayerDamaged(Enemy enemy);
 
     // == static methods to be implemented by the event listner ==
     public static EnemyKilled EnemyKilledEvent;
-    
+    //public static PlayerDamaged PlayerDamagedEvent;
+
     private void OnTriggerEnter(Collider whatHitMe) 
     {
         
         var bullet = whatHitMe.GetComponent<Bullet>();
         var axe = whatHitMe.GetComponent<Axe>();
+        //var player = whatHitMe.GetComponent<Player>();
 
-        if (bullet)
+        if (bullet || axe)
         {
             // event to award points
             PublishEnemyKilledEvent();
 
             // play sound effects
-            //FindObjectOfType<AudioManager>().Play("EnemyExplosion");
+            FindObjectOfType<AudioManager>().Play("ZombieDead");
 
             // destroy enemy
             Destroy(gameObject);
-        }
-
-        if (axe)
-        {
-            // event to award points
-            PublishEnemyKilledEvent();
-
-            // play sound effects
-            //FindObjectOfType<AudioManager>().Play("EnemyExplosion");
-
-            // destroy enemy
-            Destroy(gameObject);
-        }
+        }    
         
     }
 
